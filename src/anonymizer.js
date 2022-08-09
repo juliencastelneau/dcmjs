@@ -11,7 +11,7 @@ var tagNamesToEmpty = [
     "SeriesDate",
     "AccessionNumber",
     // (valuable, but sometimes manually filled)
-    "SeriesDescription",
+    // "SeriesDescription",
     // cat 1/3: CTP: set to empty explicitely using @empty
     "StudyTime",
     "ContentTime",
@@ -70,7 +70,7 @@ var tagNamesToEmpty = [
     "ReferringPhysiciansIDSeq",
     "TimezoneOffsetFromUTC",
     "StationName",
-    "StudyDescription",
+    // "StudyDescription",
     "InstitutionalDepartmentName",
     "PhysicianOfRecord",
     "PhysicianOfRecordIdSeq",
@@ -235,19 +235,16 @@ var tagNamesToEmpty = [
     "DataSetTrailingPadding"
 ];
 
-export function cleanTags(dict) {
+export function cleanTags(dict, tagsToReplace) {
     tagNamesToEmpty.forEach(function (tag) {
         var tagInfo = DicomMetaDictionary.nameMap[tag];
         if (tagInfo && tagInfo.version != "PrivateTag") {
             var tagNumber = tagInfo.tag,
                 tagString = Tag.fromPString(tagNumber).toCleanString();
             if (dict[tagString]) {
-                log.log("empty tag " + tag);
                 var newValue;
-                if (tagString == "00100010") {
-                    newValue = ["ANON^PATIENT"];
-                } else if (tagString == "00100020") {
-                    newValue = ["ANONID"];
+                if (tagString in tagsToReplace) {
+                    newValue = [tagsToReplace[tagString]];
                 } else {
                     newValue = [];
                 }
