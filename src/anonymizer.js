@@ -2,7 +2,7 @@ import log from "./log.js";
 import { DicomMetaDictionary } from "./DicomMetaDictionary.js";
 import { Tag } from "./Tag.js";
 
-var tagNamesToEmpty = [
+export var tagNamesToEmpty = [
     // please override these in specificReplaceDefaults to have useful values
     "PatientID",
     "PatientName",
@@ -11,7 +11,7 @@ var tagNamesToEmpty = [
     "SeriesDate",
     "AccessionNumber",
     // (valuable, but sometimes manually filled)
-    // "SeriesDescription",
+    "SeriesDescription",
     // cat 1/3: CTP: set to empty explicitely using @empty
     "StudyTime",
     "ContentTime",
@@ -70,7 +70,7 @@ var tagNamesToEmpty = [
     "ReferringPhysiciansIDSeq",
     "TimezoneOffsetFromUTC",
     "StationName",
-    // "StudyDescription",
+    "StudyDescription",
     "InstitutionalDepartmentName",
     "PhysicianOfRecord",
     "PhysicianOfRecordIdSeq",
